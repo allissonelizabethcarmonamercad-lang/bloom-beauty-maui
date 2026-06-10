@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BloomBeauty.MainPage"
+             Title="Bloom Beauty">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0" Padding="0">
+            
+            <!-- Header/Navbar -->
+            <Frame BorderColor="#C83131" CornerRadius="0" HasShadow="True" Padding="0" Margin="0">
+                <VerticalStackLayout Padding="15" Spacing="10">
+                    <!-- Logo and Title Row -->
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Label Text="🌸" FontSize="32"/>
+                        <Label Text="Bloom Beauty" FontSize="20" FontAttributes="Bold" TextColor="#C83131" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Search Bar -->
+                    <Frame BorderColor="#CCCCCC" CornerRadius="8" Padding="10" HasShadow="False">
+                        <Entry Placeholder="Buscar..." BackgroundColor="Transparent"/>
+                    </Frame>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Carousel Section -->
+            <CarouselView 
+                x:Name="carousel"
+                ItemsSource="{Binding CarouselItems}"
+                CurrentItemChangedCommand="{Binding ItemChangedCommand}"
+                IndicatorOptions="Dots"
+                HeightRequest="300"
+                Margin="0">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Image 
+                            Source="{Binding ImageUrl}"
+                            Aspect="AspectFill"
+                            Margin="10"/>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <!-- Welcome Section -->
+            <Frame BorderColor="Transparent" CornerRadius="0" HasShadow="False" Padding="15" BackgroundColor="#F9F9F9">
+                <VerticalStackLayout Spacing="15">
+                    <Image 
+                        Source="https://i.pinimg.com/736x/49/dd/f7/49ddf700896c751b650b4c4cb0c951df.jpg"
+                        Aspect="AspectFill"
+                        HeightRequest="250"
+                        CornerRadius="15"/>
+                    
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="¡Bienvenido a Bloom Beauty!" FontSize="18" FontAttributes="Bold" TextColor="#333333"/>
+                        <Label Text="Explora nuestra selección exclusiva para resaltar tu belleza." FontSize="14" TextColor="#999999"/>
+                        <Button Text="Descubre lo más nuevo" BackgroundColor="#C83131" TextColor="White" CornerRadius="5"/>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Lo más Nuevo Section -->
+            <VerticalStackLayout Padding="15" Spacing="15">
+                <Label Text="¡LO MÁS NUEVO!" FontSize="20" FontAttributes="Bold" TextColor="#C83131"/>
+                
+                <CollectionView 
+                    ItemsSource="{Binding NewProducts}"
+                    SelectionMode="Single"
+                    SelectionChangedCommand="{Binding ProductSelectedCommand}"
+                    SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" HorizontalItemSpacing="10" VerticalItemSpacing="10" Columns="2"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Spacing="8" Padding="10" BackgroundColor="White" CornerRadius="10">
+                                <Frame BorderColor="Transparent" CornerRadius="8" Padding="0" HasShadow="True">
+                                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="150"/>
+                                </Frame>
+                                <Label Text="{Binding Name}" FontSize="12" FontAttributes="Bold" TextColor="#333333" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding Price, StringFormat='${0:F2} MXN'}" FontSize="12" FontAttributes="Bold" TextColor="#C83131"/>
+                                <Button Text="Comprar" BackgroundColor="#C83131" TextColor="White" CornerRadius="5" Padding="5" FontSize="11" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddToCartCommand}" CommandParameter="{Binding .}"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Lo más Viral Section -->
+            <VerticalStackLayout Padding="15" Spacing="15" BackgroundColor="#F9F9F9">
+                <Label Text="¡LO MÁS VIRAL!" FontSize="20" FontAttributes="Bold" TextColor="#C83131"/>
+                
+                <CollectionView 
+                    ItemsSource="{Binding ViralProducts}"
+                    SelectionMode="Single">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" HorizontalItemSpacing="10" VerticalItemSpacing="10" Columns="2"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Spacing="8" Padding="10" BackgroundColor="White" CornerRadius="10">
+                                <Frame BorderColor="Transparent" CornerRadius="8" Padding="0" HasShadow="True">
+                                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="150"/>
+                                </Frame>
+                                <Label Text="{Binding Name}" FontSize="12" FontAttributes="Bold" TextColor="#333333" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding Price, StringFormat='${0:F2} MXN'}" FontSize="12" FontAttributes="Bold" TextColor="#C83131"/>
+                                <Button Text="Comprar" BackgroundColor="#C83131" TextColor="White" CornerRadius="5" Padding="5" FontSize="11" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddToCartCommand}" CommandParameter="{Binding .}"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Servicios Section -->
+            <VerticalStackLayout Padding="15" Spacing="15">
+                <Label Text="Nuestros Servicios" FontSize="20" FontAttributes="Bold" TextColor="#C83131" HorizontalTextAlignment="Center"/>
+                <Label Text="Descubre los servicios que ofrecemos para satisfacer tus necesidades." FontSize="13" TextColor="#999999" HorizontalTextAlignment="Center"/>
+                
+                <CollectionView ItemsSource="{Binding Services}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Spacing="8" BackgroundColor="White" Padding="10" CornerRadius="10">
+                                <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="150" CornerRadius="8"/>
+                                <Label Text="{Binding Description}" FontSize="12" TextColor="#666666"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Contact Form -->
+            <VerticalStackLayout Padding="15" Spacing="15" BackgroundColor="#F9F9F9">
+                <Label Text="Contáctanos" FontSize="20" FontAttributes="Bold" TextColor="#C83131" HorizontalTextAlignment="Center"/>
+                
+                <Entry Placeholder="Nombre completo" BackgroundColor="White" Padding="10"/>
+                <Entry Placeholder="Correo electrónico" BackgroundColor="White" Padding="10" Keyboard="Email"/>
+                <Entry Placeholder="Asunto" BackgroundColor="White" Padding="10"/>
+                <Editor Placeholder="Tu mensaje..." BackgroundColor="White" Padding="10" HeightRequest="100"/>
+                
+                <Button Text="Enviar mensaje" BackgroundColor="#C83131" TextColor="White" CornerRadius="5"/>
+            </VerticalStackLayout>
+
+            <!-- Footer -->
+            <Frame BorderColor="#CCCCCC" CornerRadius="0" HasShadow="False" Padding="15" BackgroundColor="#F9F9F9">
+                <VerticalStackLayout Spacing="15">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="BLOOM BEAUTY" FontSize="14" FontAttributes="Bold" TextColor="#C83131"/>
+                        <Label Text="Tu tienda favorita para productos de maquillaje, skincare y cuidado personal." FontSize="11" TextColor="#666666"/>
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout Spacing="3">
+                        <Label Text="CONTACTO" FontSize="12" FontAttributes="Bold" TextColor="#C83131"/>
+                        <Label Text="📍 Tampico, Tamaulipas, México" FontSize="11"/>
+                        <Label Text="✉️ bloombeauty@gmail.com" FontSize="11"/>
+                        <Label Text="📞 +52 833 456 7890" FontSize="11"/>
+                    </VerticalStackLayout>
+                    
+                    <Label Text="© 2025 Bloom Beauty. Todos los derechos reservados." FontSize="10" TextColor="#999999" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
