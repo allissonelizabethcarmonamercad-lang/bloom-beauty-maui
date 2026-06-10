@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BloomBeauty.CartPage"
+             Title="Carrito">
+
+    <VerticalStackLayout Padding="15" Spacing="15">
+        
+        <Label Text="Mi Carrito" FontSize="24" FontAttributes="Bold" TextColor="#C83131"/>
+
+        <CollectionView x:Name="CartCollectionView" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="10" Margin="0,5" HasShadow="True">
+                        <HorizontalStackLayout Spacing="10">
+                            <Image Source="{Binding ImageUrl}" Aspect="AspectFill" WidthRequest="100" HeightRequest="100" CornerRadius="8"/>
+                            
+                            <VerticalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding Name}" FontSize="14" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding Price, StringFormat='${0:F2} MXN'}" FontSize="12" TextColor="#C83131" FontAttributes="Bold"/>
+                                
+                                <HorizontalStackLayout Spacing="5">
+                                    <Button Text="-" BackgroundColor="#CCCCCC" TextColor="Black" WidthRequest="30" HeightRequest="30" Padding="0" FontSize="12"/>
+                                    <Label Text="{Binding Quantity}" VerticalOptions="Center" FontSize="12" FontAttributes="Bold"/>
+                                    <Button Text="+" BackgroundColor="#CCCCCC" TextColor="Black" WidthRequest="30" HeightRequest="30" Padding="0" FontSize="12"/>
+                                    <Button Text="🗑️" BackgroundColor="Transparent" TextColor="Red" HorizontalOptions="EndAndExpand" FontSize="16"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Frame BorderColor="#C83131" CornerRadius="10" Padding="15" HasShadow="True" Margin="0,20,0,0">
+            <VerticalStackLayout Spacing="10">
+                <HorizontalStackLayout>
+                    <Label Text="Subtotal:" FontSize="14" TextColor="#666666" HorizontalOptions="StartAndExpand"/>
+                    <Label Text="$0.00 MXN" FontSize="14" TextColor="#333333" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+                
+                <HorizontalStackLayout>
+                    <Label Text="Envío:" FontSize="14" TextColor="#666666" HorizontalOptions="StartAndExpand"/>
+                    <Label Text="Gratis" FontSize="14" TextColor="#C83131" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+                
+                <BoxView Color="#CCCCCC" HeightRequest="1" Margin="0,5"/>
+                
+                <HorizontalStackLayout>
+                    <Label Text="Total:" FontSize="16" TextColor="#333333" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                    <Label Text="$0.00 MXN" FontSize="16" TextColor="#C83131" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+
+        <Button Text="Proceder al Pago" BackgroundColor="#C83131" TextColor="White" CornerRadius="8" Padding="15" FontSize="16"/>
+        <Button Text="Seguir comprando" BackgroundColor="Transparent" TextColor="#C83131" BorderColor="#C83131" BorderWidth="2" CornerRadius="8" Padding="15" FontSize="16"/>
+    </VerticalStackLayout>
+</ContentPage>
